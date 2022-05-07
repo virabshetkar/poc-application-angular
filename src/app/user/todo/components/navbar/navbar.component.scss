@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.menu-title {
+  padding: 1rem;
+}
+.menu-title > h1 {
+  margin: 0px;
+}
+
+.menu-title > p {
+  color: grey;
+}
