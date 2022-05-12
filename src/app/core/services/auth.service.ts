@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { from, map, mergeMap } from 'rxjs';
+import { from, mergeMap } from 'rxjs';
 import { CredentialModel } from '../models/credentials.model';
 import { FirestoreCollections } from '../enums/firestore-collections.enum';
 import { RegistrationModel } from '../models/registration.model';

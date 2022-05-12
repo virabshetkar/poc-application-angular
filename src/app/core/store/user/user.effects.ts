@@ -1,16 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, exhaustMap, map, mergeMap, of, tap } from 'rxjs';
 import {
-  catchError,
-  exhaustAll,
-  exhaustMap,
-  from,
-  map,
-  mergeMap,
-  of,
-  tap,
-} from 'rxjs';
-import {
+  loginEnd,
   loginFailure,
   loginSuccess,
   loginUser,
@@ -21,6 +13,7 @@ import {
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FirebaseError } from '@angular/fire/app';
 
 @Injectable()
 export class UserEffects {
@@ -60,6 +53,18 @@ export class UserEffects {
     { dispatch: false }
   );
 
+  loginFailureEffect$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loginFailure),
+      exhaustMap(({ error }) => {
+        this.snackbar.open(this.getErrorMessage(error), undefined, {
+          duration: 5000,
+        });
+        return of(loginEnd());
+      })
+    )
+  );
+
   registerEffect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(registerUser),
@@ -85,15 +90,26 @@ export class UserEffects {
       ),
     { dispatch: false }
   );
+
   registerFailure$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(registerFailure),
-        tap((error) => {
-          console.log('REGISTER FAILURE');
-          this.router.navigate(['error', 'register', { error }]);
-        })
+        tap((error) => {})
       ),
     { dispatch: false }
   );
+
+  private getErrorMessage(error: any) {
+    if (error instanceof FirebaseError) {
+      if (error.code === 'auth/user-not-found') {
+        return 'Email not registered';
+      } else if (error.code === 'auth/wrong-password') {
+        return 'Password is incorrect';
+      } else if (error.code === 'auth/too-many-requests') {
+        return 'User has many failed login attempts';
+      }
+    }
+    return 'Something went seriously wrong';
+  }
 }

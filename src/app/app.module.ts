@@ -8,11 +8,20 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ErrorComponent } from './containers/error/error.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EmailverificationComponent } from './containers/emailverification/emailverification.component';
-
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [AppComponent, ErrorComponent, EmailverificationComponent],
-  imports: [BrowserModule, AppRoutingModule, CoreModule, MatProgressBarModule, BrowserAnimationsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    CoreModule,
+    MatProgressBarModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatIconModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

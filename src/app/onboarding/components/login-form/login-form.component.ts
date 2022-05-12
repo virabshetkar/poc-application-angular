@@ -1,5 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FirebaseError } from '@angular/fire/app';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -7,7 +6,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { userSelector } from '../../../core/store/user/user.selectors';
 
 @Component({
   selector: 'app-login-form',
@@ -16,10 +14,10 @@ import { userSelector } from '../../../core/store/user/user.selectors';
 })
 export class LoginFormComponent implements OnInit {
   @Output() login = new EventEmitter<{ email: string; password: string }>();
-  errorMessage?: string;
-  loginFormGroup: FormGroup;
+  @Input() errorMessage?: string;
 
-  user$ = this.store.select(userSelector);
+  loginFormGroup: FormGroup;
+  isSubmitted?: boolean;
 
   constructor(fb: FormBuilder, private store: Store) {
     this.loginFormGroup = fb.group({
@@ -28,22 +26,7 @@ export class LoginFormComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.user$.subscribe((user) => {
-      if (user.error) {
-        if (user.error instanceof FirebaseError) {
-          if (user.error.code === 'auth/user-not-found') {
-            this.errorMessage = 'Emial not registered';
-          } else if (user.error.code === 'auth/wrong-password') {
-            this.errorMessage = 'Password is incorrect';
-          } else if (user.error.code === 'auth/too-many-requests') {
-            this.errorMessage = 'User has many failed login attempts';
-          }
-        }
-        this.loginFormGroup.enable();
-      }
-    });
-  }
+  ngOnInit(): void {}
 
   get emailControl() {
     return this.loginFormGroup.get('email') as FormControl;
@@ -54,7 +37,7 @@ export class LoginFormComponent implements OnInit {
   }
 
   submitForm() {
-    this.loginFormGroup.disable();
+    this.isSubmitted = true;
     this.login.emit(this.loginFormGroup.value);
   }
 }

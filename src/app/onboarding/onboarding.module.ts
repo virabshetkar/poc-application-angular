@@ -16,7 +16,16 @@ import { LoginProvidersComponent } from './components/login-providers/login-prov
 import { RegistrationFormComponent } from './components/registration-form/registration-form.component';
 import { RegisterComponent } from './containers/register/register.component';
 import { UserStoreModule } from '../core/store/user/user-store.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+const MaterialImports = [
+  MatToolbarModule,
+  MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+];
 @NgModule({
   declarations: [
     OnboardingComponent,
@@ -34,11 +43,7 @@ import { UserStoreModule } from '../core/store/user/user-store.module';
     FormsModule,
     ReactiveFormsModule,
     UserStoreModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatProgressBarModule,
+    MaterialImports,
   ],
 })
 export class OnboardingModule {}

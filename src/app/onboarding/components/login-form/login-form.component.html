@@ -5,7 +5,9 @@
     [formGroup]="loginFormGroup"
   >
     <h1>Login Form</h1>
-    <p class="error-text small">{{ errorMessage }}</p>
+    <p class="error-text" *ngIf="errorMessage && isSubmitted">
+      {{ errorMessage }}
+    </p>
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
       <input
@@ -52,4 +54,7 @@
     </button>
     <p>Don't have an account? <a routerLink="/register">Register now</a></p>
   </form>
+  <div class="loading" *ngIf="isSubmitted && !errorMessage">
+    <mat-spinner class="spinner"></mat-spinner>
+  </div>
 </div>

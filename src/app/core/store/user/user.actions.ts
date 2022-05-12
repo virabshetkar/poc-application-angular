@@ -28,3 +28,4 @@ export const loginFailure = createAction(
   userAction(UserAction.LOGIN, Status.FAILURE),
   props<{ error: any }>()
 );
+export const loginEnd = createAction(userAction(UserAction.LOGIN, Status.END));

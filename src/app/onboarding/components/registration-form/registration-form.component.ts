@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -17,6 +17,9 @@ export class RegistrationFormComponent implements OnInit {
   registrationFormGroup: FormGroup;
 
   @Output() registerUser = new EventEmitter<RegistrationModel>();
+  @Input() errorMessage?: string;
+
+  isSubmitted?: boolean;
 
   constructor(fb: FormBuilder) {
     this.registrationFormGroup = fb.group(
@@ -60,8 +63,7 @@ export class RegistrationFormComponent implements OnInit {
   ngOnInit(): void {}
 
   submitForm() {
-    this.registrationFormGroup.disable();
-    console.log(this.registrationFormGroup.value);
+    this.isSubmitted = true;
     this.registerUser.emit(this.registrationFormGroup.value);
   }
 }

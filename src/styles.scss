@@ -36,15 +36,16 @@ $todo-angular-theme: mat.define-light-theme(
 
 /* You can add global styles to this file, and also import other style files */
 
-html,
-body {
-  height: 100%;
-}
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background: fixed
-    linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%);
+  background-image: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  background-attachment: fixed;
+  min-height: 100vh;
 }
 
 ::-webkit-scrollbar {
@@ -120,13 +121,4 @@ body {
     opacity: 0;
     transform: translateY(3em);
   }
-}
-
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

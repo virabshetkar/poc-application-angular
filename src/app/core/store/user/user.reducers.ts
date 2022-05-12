@@ -20,10 +20,10 @@ const initialState: State<UserModel> = {
 
 export const userReducer = createReducer(
   initialState,
-  on(loginUser, (state, action) => {
-    return { ...state, isLoading: true, isLoaded: false };
+  on(loginUser, () => {
+    return { data: null, error: null, isLoading: true, isLoaded: false };
   }),
-  on(loginFailure, (state, action) => {
+  on(loginFailure, (_, action) => {
     return {
       error: action.error,
       data: null,
@@ -31,7 +31,7 @@ export const userReducer = createReducer(
       isLoaded: true,
     };
   }),
-  on(loginSuccess, (state, action) => {
+  on(loginSuccess, (_, action) => {
     return {
       data: action.user,
       error: null,
@@ -39,14 +39,19 @@ export const userReducer = createReducer(
       isLoaded: true,
     };
   }),
-  on(registerUser, (state, action) => {
-    return { ...state, isLoading: true };
+  on(registerUser, (state, _) => {
+    return { data: null, error: null, isLoading: true, isLoaded: false };
   }),
-  on(registerSuccess, (state, action) => {
+  on(registerSuccess, (state, _) => {
     return { ...state, isLoading: false };
   }),
   on(registerFailure, (state, action) => {
-    return { ...state, error: action.error, isLoading: false };
+    return {
+      error: action.error,
+      data: null,
+      isLoading: false,
+      isLoaded: true,
+    };
   })
 );
 

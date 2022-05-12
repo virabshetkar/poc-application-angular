@@ -5,7 +5,9 @@
     [formGroup]="registrationFormGroup"
   >
     <h1 class="mat-display-1">Registration Form</h1>
-
+    <p class="error-text" *ngIf="errorMessage && isSubmitted">
+      {{ errorMessage }}
+    </p>
     <mat-form-field appearance="outline">
       <mat-label>First Name</mat-label>
       <input
@@ -123,5 +125,8 @@
     >
       Submit
     </button>
+    <div class="loading" *ngIf="isSubmitted && !errorMessage">
+      <mat-spinner class="spinner"></mat-spinner>
+    </div>
   </form>
 </div>
